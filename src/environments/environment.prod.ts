@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.hr-dashboard.com',
+  apiUrl: 'https://my-json-server.typicode.com/DarioColetto/hr_dashboard',
   appName: 'HR Dashboard',
 };
