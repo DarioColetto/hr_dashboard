@@ -1,6 +1,6 @@
 # HR Dashboard
 
-Panel de administración de recursos humanos construido con Angular 18.
+Panel de administración de recursos humanos construido con Angular 18. Incluye autenticación con JWT simulado, CRUD completo de empleados (crear, editar, ver detalle y eliminar), búsqueda con debounce, paginación, exportación a PDF y gestión de experiencia laboral mediante formularios reactivos multi-paso.
 
 ## Stack
 
@@ -63,6 +63,48 @@ npm run format
 ```
 Email: admin@empresa.com
 Password: admin123
+```
+
+## Proxy de desarrollo
+
+En desarrollo, Angular corre en `:4200` y la mock API en `:3000`. Para evitar errores de CORS, el dev server redirige automáticamente las requests mediante `proxy.conf.json`:
+
+```
+GET /api/employees  →  http://localhost:3000/employees
+```
+
+El prefijo `/api` es eliminado antes de reenviar la request al servidor (`pathRewrite`). Esta configuración solo aplica en desarrollo; en producción las requests apuntan directamente a la URL de la API.
+
+## Interceptor HTTP
+
+`auth.interceptor.ts` actúa como middleware para todas las requests HTTP salientes y respuestas entrantes:
+
+- **Request saliente:** agrega el header `Authorization: Bearer <token>` si existe un token en `localStorage`.
+- **Respuesta 401:** elimina el token y redirige al login (sesión expirada).
+- **Respuesta 403:** muestra notificación de permisos insuficientes.
+- **Respuesta 500+:** muestra notificación de error de servidor.
+
+Esto centraliza el manejo de autenticación y errores, sin que cada componente tenga que gestionarlos individualmente.
+
+## Husky y lint-staged
+
+Husky ejecuta un hook de `pre-commit` que corre automáticamente antes de cada `git commit`. Mediante `lint-staged`, aplica Prettier solo sobre los archivos staged (`.ts`, `.html`, `.scss`), garantizando que el código commiteado siempre esté formateado correctamente sin necesidad de formatear todo el proyecto.
+
+## Tests
+
+Los tests unitarios cubren las partes consideradas más críticas de la aplicación:
+
+| Suite | Descripción |
+|---|---|
+| `auth.guard.spec` | Verifica que las rutas protegidas redirijan al login sin token |
+| `auth.interceptor.spec` | Cubre el agregado del header JWT y el manejo de errores 401/403/500 |
+| `login.component.spec` | Valida el formulario, el flujo de login y el guardado del token |
+| `pdf.service.spec` | Verifica que se llame a pdfmake con la definición correcta |
+| `employee.service.spec` | Cubre los métodos CRUD del servicio principal |
+| `custom.validators.spec` | Valida los validadores de DNI, rango salarial y rango de fechas |
+
+```bash
+npm run test:coverage
 ```
 
 ## Environments
