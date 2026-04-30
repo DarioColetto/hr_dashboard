@@ -5,12 +5,18 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { mockBackendInterceptor } from './core/interceptors/mock-backend.interceptor';
+import { environment } from '../environments/environment';
+
+const interceptors = environment.production
+  ? [mockBackendInterceptor, authInterceptor]
+  : [authInterceptor];
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors(interceptors)),
     provideAnimationsAsync(),
     provideToastr({ positionClass: 'toast-top-right', preventDuplicates: true }),
   ],
