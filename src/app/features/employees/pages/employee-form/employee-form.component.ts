@@ -1,11 +1,5 @@
 import { Component, inject, signal, OnInit, input } from '@angular/core';
-import {
-  FormBuilder,
-  FormArray,
-  ReactiveFormsModule,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormBuilder, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,6 +21,7 @@ import {
 
 @Component({
   selector: 'app-employee-form',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatStepperModule,

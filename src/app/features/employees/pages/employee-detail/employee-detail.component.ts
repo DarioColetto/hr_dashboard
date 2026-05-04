@@ -13,6 +13,7 @@ import { Employee } from '../../../../core/models/employee.model';
 
 @Component({
   selector: 'app-employee-detail',
+  standalone: true,
   imports: [
     RouterLink,
     DecimalPipe,
@@ -285,7 +286,7 @@ export class EmployeeDetailComponent implements OnInit {
     };
 
     this.pdfService
-      .download(docDefinition, `${emp.firstName}_${emp.lastName}.pdf`)
+      .download(docDefinition)
       .then(() => this.toastr.success('PDF generado correctamente'))
       .catch((err: unknown) => {
         console.error('[PDF] Error:', err);

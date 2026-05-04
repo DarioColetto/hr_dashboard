@@ -58,7 +58,7 @@ describe('EmployeeService', () => {
   });
 
   it('create() should POST a new employee', () => {
-    const { id, ...newEmp } = mockEmployee;
+    const { id: _id, ...newEmp } = mockEmployee;
     service.create(newEmp).subscribe(emp => {
       expect(emp.id).toBeDefined();
     });

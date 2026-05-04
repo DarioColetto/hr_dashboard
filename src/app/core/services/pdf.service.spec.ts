@@ -26,12 +26,12 @@ describe('PdfService', () => {
 
   it('download() calls createPdf with the document definition', async () => {
     const doc = { content: ['Hello World'] };
-    await service.download(doc, 'test.pdf');
+    await service.download(doc);
     expect(mockCreatePdf).toHaveBeenCalledWith(doc);
   });
 
   it('download() calls open() on the pdf document', async () => {
-    await service.download({ content: ['Test'] }, 'test.pdf');
+    await service.download({ content: ['Test'] });
     expect(mockOpen).toHaveBeenCalled();
   });
 
@@ -39,8 +39,6 @@ describe('PdfService', () => {
     mockCreatePdf.mockImplementationOnce(() => {
       throw new Error('pdfmake error');
     });
-    await expect(service.download({ content: ['Test'] }, 'test.pdf')).rejects.toThrow(
-      'pdfmake error'
-    );
+    await expect(service.download({ content: ['Test'] })).rejects.toThrow('pdfmake error');
   });
 });

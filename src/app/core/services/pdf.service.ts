@@ -24,7 +24,7 @@ export class PdfService {
     return pdfMake;
   }
 
-  async download(docDefinition: object, _filename: string): Promise<void> {
+  async download(docDefinition: object): Promise<void> {
     const pdfMake = await this.getPdfMake();
     await pdfMake.createPdf(docDefinition).open();
   }
