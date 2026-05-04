@@ -27,7 +27,6 @@ import {
 
 @Component({
   selector: 'app-employee-form',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatStepperModule,

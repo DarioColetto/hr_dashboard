@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatCardModule,

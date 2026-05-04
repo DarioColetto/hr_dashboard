@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',
-  standalone: true,
   imports: [
     RouterOutlet,
     RouterLink,
@@ -39,13 +38,21 @@ import { Subscription } from 'rxjs';
 
         <div class="nav-section-label">MENÚ</div>
         <mat-nav-list>
-          <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link"
-            (click)="onNavClick()">
+          <a
+            mat-list-item
+            routerLink="/dashboard"
+            routerLinkActive="active-link"
+            (click)="onNavClick()"
+          >
             <mat-icon matListItemIcon>dashboard</mat-icon>
             <span matListItemTitle>Dashboard</span>
           </a>
-          <a mat-list-item routerLink="/employees" routerLinkActive="active-link"
-            (click)="onNavClick()">
+          <a
+            mat-list-item
+            routerLink="/employees"
+            routerLinkActive="active-link"
+            (click)="onNavClick()"
+          >
             <mat-icon matListItemIcon>people</mat-icon>
             <span matListItemTitle>Empleados</span>
           </a>
@@ -80,7 +87,9 @@ import { Subscription } from 'rxjs';
   `,
   styles: [
     `
-      .sidenav-container { height: 100vh; }
+      .sidenav-container {
+        height: 100vh;
+      }
 
       .sidenav {
         width: 248px;
@@ -105,10 +114,26 @@ import { Subscription } from 'rxjs';
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        mat-icon { color: #fff; font-size: 20px; width: 20px; height: 20px; }
+        mat-icon {
+          color: #fff;
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
       }
-      .brand-name { display: block; font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2; }
-      .brand-sub  { display: block; font-size: 11px; color: rgba(255,255,255,.4); margin-top: 1px; }
+      .brand-name {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.2;
+      }
+      .brand-sub {
+        display: block;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 1px;
+      }
 
       /* Nav */
       .nav-section-label {
@@ -118,7 +143,9 @@ import { Subscription } from 'rxjs';
         letter-spacing: 1px;
         color: rgba(255, 255, 255, 0.25);
       }
-      mat-nav-list { padding: 4px 8px !important; }
+      mat-nav-list {
+        padding: 4px 8px !important;
+      }
 
       /* Footer */
       .sidenav-footer {
@@ -130,14 +157,24 @@ import { Subscription } from 'rxjs';
         border-top: 1px solid rgba(255, 255, 255, 0.07);
         color: rgba(255, 255, 255, 0.3);
         font-size: 12px;
-        mat-icon { font-size: 16px; width: 16px; height: 16px; }
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
       }
 
       /* Toolbar */
-      .menu-btn { color: #64748b; }
+      .menu-btn {
+        color: #64748b;
+      }
       .avatar-btn {
         color: #64748b;
-        mat-icon { font-size: 28px; width: 28px; height: 28px; }
+        mat-icon {
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
       }
 
       /* Content */
@@ -148,13 +185,22 @@ import { Subscription } from 'rxjs';
       }
 
       @media (max-width: 768px) {
-        .sidenav { width: 260px; }
-        .content { padding: 16px; }
+        .sidenav {
+          width: 260px;
+        }
+        .content {
+          padding: 16px;
+        }
       }
 
       @media (max-width: 480px) {
-        .sidenav { width: 85vw; max-width: 300px; }
-        .content { padding: 12px; }
+        .sidenav {
+          width: 85vw;
+          max-width: 300px;
+        }
+        .content {
+          padding: 12px;
+        }
       }
     `,
   ],

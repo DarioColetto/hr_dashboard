@@ -17,7 +17,6 @@ import { Employee } from '../../../../core/models/employee.model';
 
 @Component({
   selector: 'app-employee-list',
-  standalone: true,
   imports: [
     RouterLink,
     ReactiveFormsModule,
@@ -66,52 +65,52 @@ import { Employee } from '../../../../core/models/employee.model';
     </div>
 
     <div class="table-wrapper">
-    <table
-      mat-table
-      [dataSource]="employees()"
-      matSort
-      (matSortChange)="onSort($event)"
-      class="mat-elevation-z2"
-    >
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.firstName }} {{ emp.lastName }}</td>
-      </ng-container>
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.email }}</td>
-      </ng-container>
-      <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Departamento</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.department }}</td>
-      </ng-container>
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Estado</th>
-        <td mat-cell *matCellDef="let emp">
-          <span [class]="'status-badge status-' + emp.status">{{ statusLabel(emp.status) }}</span>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let emp">
-          <a mat-icon-button [routerLink]="['/employees', emp.id]" title="Ver detalle">
-            <mat-icon>visibility</mat-icon>
-          </a>
-          <a mat-icon-button [routerLink]="['/employees', emp.id, 'edit']" title="Editar">
-            <mat-icon>edit</mat-icon>
-          </a>
-          <button mat-icon-button color="warn" (click)="confirmDelete(emp)" title="Eliminar">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+      <table
+        mat-table
+        [dataSource]="employees()"
+        matSort
+        (matSortChange)="onSort($event)"
+        class="mat-elevation-z2"
+      >
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let emp">{{ emp.firstName }} {{ emp.lastName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let emp">{{ emp.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Departamento</th>
+          <td mat-cell *matCellDef="let emp">{{ emp.department }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let emp">
+            <span [class]="'status-badge status-' + emp.status">{{ statusLabel(emp.status) }}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let emp">
+            <a mat-icon-button [routerLink]="['/employees', emp.id]" title="Ver detalle">
+              <mat-icon>visibility</mat-icon>
+            </a>
+            <a mat-icon-button [routerLink]="['/employees', emp.id, 'edit']" title="Editar">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button color="warn" (click)="confirmDelete(emp)" title="Eliminar">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell no-data" colspan="5">No se encontraron empleados</td>
-      </tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-data" colspan="5">No se encontraron empleados</td>
+        </tr>
+      </table>
     </div>
 
     <mat-paginator
@@ -149,15 +148,15 @@ import { Employee } from '../../../../core/models/employee.model';
         font-size: 14px;
       }
       .status-active {
-        --mdc-chip-container-color: #dcfce7;
+        --mat-chip-container-color: #dcfce7;
         color: #166534 !important;
       }
       .status-inactive {
-        --mdc-chip-container-color: #fee2e2;
+        --mat-chip-container-color: #fee2e2;
         color: #991b1b !important;
       }
       .status-on-leave {
-        --mdc-chip-container-color: #fef3c7;
+        --mat-chip-container-color: #fef3c7;
         color: #92400e !important;
       }
       .table-wrapper {
@@ -166,7 +165,9 @@ import { Employee } from '../../../../core/models/employee.model';
       }
       @media (max-width: 600px) {
         .mat-column-email,
-        .mat-column-department { display: none; }
+        .mat-column-department {
+          display: none;
+        }
       }
     `,
   ],

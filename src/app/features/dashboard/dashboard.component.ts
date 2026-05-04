@@ -17,7 +17,6 @@ interface StatCard {
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [MatCardModule, MatIconModule, RouterLink, BaseChartDirective],
   template: `
     <div class="page-header">
@@ -45,10 +44,7 @@ interface StatCard {
             <mat-card-title>Estado de empleados</mat-card-title>
           </mat-card-header>
           <mat-card-content class="chart-content">
-            <canvas baseChart
-              [data]="statusChartData"
-              [options]="doughnutOptions"
-              type="doughnut">
+            <canvas baseChart [data]="statusChartData" [options]="doughnutOptions" type="doughnut">
             </canvas>
           </mat-card-content>
         </mat-card>
@@ -58,11 +54,7 @@ interface StatCard {
             <mat-card-title>Empleados por departamento</mat-card-title>
           </mat-card-header>
           <mat-card-content class="chart-content">
-            <canvas baseChart
-              [data]="deptChartData"
-              [options]="barOptions"
-              type="bar">
-            </canvas>
+            <canvas baseChart [data]="deptChartData" [options]="barOptions" type="bar"> </canvas>
           </mat-card-content>
         </mat-card>
 
@@ -71,10 +63,7 @@ interface StatCard {
             <mat-card-title>Salario promedio por departamento</mat-card-title>
           </mat-card-header>
           <mat-card-content class="chart-content">
-            <canvas baseChart
-              [data]="salaryChartData"
-              [options]="salaryBarOptions"
-              type="bar">
+            <canvas baseChart [data]="salaryChartData" [options]="salaryBarOptions" type="bar">
             </canvas>
           </mat-card-content>
         </mat-card>
@@ -109,7 +98,9 @@ interface StatCard {
         align-items: center;
         gap: 18px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        transition: box-shadow 0.2s, transform 0.15s;
+        transition:
+          box-shadow 0.2s,
+          transform 0.15s;
 
         &:hover {
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -126,11 +117,24 @@ interface StatCard {
         justify-content: center;
         flex-shrink: 0;
 
-        mat-icon { font-size: 26px; width: 26px; height: 26px; }
+        mat-icon {
+          font-size: 26px;
+          width: 26px;
+          height: 26px;
+        }
       }
 
-      .stat-value { font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
-      .stat-label { font-size: 13px; color: #64748b; font-weight: 500; }
+      .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .stat-label {
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+      }
 
       /* Charts */
       .charts-grid {
@@ -139,13 +143,25 @@ interface StatCard {
         gap: 20px;
         margin-bottom: 28px;
 
-        @media (max-width: 768px) { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
       }
 
-      .chart-card { padding-bottom: 16px; }
-      .chart-card--wide { grid-column: 1 / -1; }
+      .chart-card {
+        padding-bottom: 16px;
+      }
+      .chart-card--wide {
+        grid-column: 1 / -1;
+      }
 
-      mat-card-title { font-size: 14px !important; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+      mat-card-title {
+        font-size: 14px !important;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
 
       .chart-content {
         display: flex;
@@ -154,7 +170,9 @@ interface StatCard {
         padding: 16px;
         max-height: 280px;
 
-        canvas { max-height: 250px; }
+        canvas {
+          max-height: 250px;
+        }
       }
 
       /* Quick actions */
@@ -167,7 +185,11 @@ interface StatCard {
         margin-bottom: 14px;
       }
 
-      .quick-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .quick-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
 
       .action-link {
         display: inline-flex;
@@ -178,22 +200,34 @@ interface StatCard {
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
-        transition: box-shadow 0.2s, transform 0.15s;
+        transition:
+          box-shadow 0.2s,
+          transform 0.15s;
 
-        mat-icon { font-size: 18px; width: 18px; height: 18px; }
-        &:hover { transform: translateY(-1px); }
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+        &:hover {
+          transform: translateY(-1px);
+        }
 
         &.primary {
           background: #1d4ed8;
           color: #fff;
-          &:hover { box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35); }
+          &:hover {
+            box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
+          }
         }
 
         &.outline {
           background: #fff;
           color: #1d4ed8;
           border: 1.5px solid #1d4ed8;
-          &:hover { background: #eff6ff; }
+          &:hover {
+            background: #eff6ff;
+          }
         }
       }
     `,
@@ -228,7 +262,7 @@ export class DashboardComponent implements OnInit {
     scales: {
       y: {
         beginAtZero: true,
-        ticks: { callback: (v) => `$${Number(v).toLocaleString()}` },
+        ticks: { callback: v => `$${Number(v).toLocaleString()}` },
       },
     },
   };
@@ -245,27 +279,41 @@ export class DashboardComponent implements OnInit {
     const active = employees.filter(e => e.status === 'active').length;
     const depts = new Set(employees.map(e => e.department)).size;
     this.stats.set([
-      { label: 'Total empleados', value: employees.length, icon: 'people',         color: '#1d4ed8', bg: '#eff6ff' },
-      { label: 'Activos',         value: active,            icon: 'check_circle',   color: '#059669', bg: '#ecfdf5' },
-      { label: 'Departamentos',   value: depts,             icon: 'corporate_fare', color: '#d97706', bg: '#fffbeb' },
-      { label: 'Nuevos este mes', value: 3,                 icon: 'person_add',     color: '#7c3aed', bg: '#f5f3ff' },
+      {
+        label: 'Total empleados',
+        value: employees.length,
+        icon: 'people',
+        color: '#1d4ed8',
+        bg: '#eff6ff',
+      },
+      { label: 'Activos', value: active, icon: 'check_circle', color: '#059669', bg: '#ecfdf5' },
+      {
+        label: 'Departamentos',
+        value: depts,
+        icon: 'corporate_fare',
+        color: '#d97706',
+        bg: '#fffbeb',
+      },
+      { label: 'Nuevos este mes', value: 3, icon: 'person_add', color: '#7c3aed', bg: '#f5f3ff' },
     ]);
   }
 
   private buildCharts(employees: Employee[]): void {
     // Doughnut — by status
     const statusCount = {
-      active:   employees.filter(e => e.status === 'active').length,
+      active: employees.filter(e => e.status === 'active').length,
       inactive: employees.filter(e => e.status === 'inactive').length,
       'on-leave': employees.filter(e => e.status === 'on-leave').length,
     };
     this.statusChartData = {
       labels: ['Activo', 'Inactivo', 'De licencia'],
-      datasets: [{
-        data: [statusCount.active, statusCount.inactive, statusCount['on-leave']],
-        backgroundColor: ['#22c55e', '#ef4444', '#f59e0b'],
-        hoverOffset: 8,
-      }],
+      datasets: [
+        {
+          data: [statusCount.active, statusCount.inactive, statusCount['on-leave']],
+          backgroundColor: ['#22c55e', '#ef4444', '#f59e0b'],
+          hoverOffset: 8,
+        },
+      ],
     };
 
     // Bar — employees by department
@@ -274,11 +322,13 @@ export class DashboardComponent implements OnInit {
     const depts = [...deptMap.entries()].sort((a, b) => b[1] - a[1]);
     this.deptChartData = {
       labels: depts.map(([d]) => d),
-      datasets: [{
-        data: depts.map(([, c]) => c),
-        backgroundColor: '#3b82f6',
-        borderRadius: 6,
-      }],
+      datasets: [
+        {
+          data: depts.map(([, c]) => c),
+          backgroundColor: '#3b82f6',
+          borderRadius: 6,
+        },
+      ],
     };
 
     // Bar — avg salary by department
@@ -293,11 +343,15 @@ export class DashboardComponent implements OnInit {
     });
     this.salaryChartData = {
       labels: salaryDepts.map(([d]) => d),
-      datasets: [{
-        data: salaryDepts.map(([, arr]) => Math.round(arr.reduce((s, n) => s + n, 0) / arr.length)),
-        backgroundColor: '#8b5cf6',
-        borderRadius: 6,
-      }],
+      datasets: [
+        {
+          data: salaryDepts.map(([, arr]) =>
+            Math.round(arr.reduce((s, n) => s + n, 0) / arr.length)
+          ),
+          backgroundColor: '#8b5cf6',
+          borderRadius: 6,
+        },
+      ],
     };
   }
 }

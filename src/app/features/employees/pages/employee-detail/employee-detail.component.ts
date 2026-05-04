@@ -13,7 +13,6 @@ import { Employee } from '../../../../core/models/employee.model';
 
 @Component({
   selector: 'app-employee-detail',
-  standalone: true,
   imports: [
     RouterLink,
     DecimalPipe,
@@ -218,15 +217,15 @@ import { Employee } from '../../../../core/models/employee.model';
       }
 
       .status-active {
-        --mdc-chip-container-color: #dcfce7;
+        --mat-chip-container-color: #dcfce7;
         color: #166534 !important;
       }
       .status-inactive {
-        --mdc-chip-container-color: #fee2e2;
+        --mat-chip-container-color: #fee2e2;
         color: #991b1b !important;
       }
       .status-on-leave {
-        --mdc-chip-container-color: #fef3c7;
+        --mat-chip-container-color: #fef3c7;
         color: #92400e !important;
       }
     `,
