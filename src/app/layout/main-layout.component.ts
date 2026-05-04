@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',
+  standalone: true,
   imports: [
     RouterOutlet,
     RouterLink,

@@ -17,6 +17,7 @@ import { Employee } from '../../../../core/models/employee.model';
 
 @Component({
   selector: 'app-employee-list',
+  standalone: true,
   imports: [
     RouterLink,
     ReactiveFormsModule,
