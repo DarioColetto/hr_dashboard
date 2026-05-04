@@ -73,7 +73,17 @@ En desarrollo, Angular corre en `:4200` y la mock API en `:3000`. Para evitar er
 GET /api/employees  →  http://localhost:3000/employees
 ```
 
-El prefijo `/api` es eliminado antes de reenviar la request al servidor (`pathRewrite`). Esta configuración solo aplica en desarrollo; en producción las requests apuntan directamente a la URL de la API.
+El prefijo `/api` es eliminado antes de reenviar la request al servidor (`pathRewrite`). Esta configuración solo aplica en desarrollo; en producción las requests son interceptadas por el mock backend (ver abajo).
+
+## Mock Backend (producción)
+
+En producción (Netlify) no hay servidor backend. `mock-backend.interceptor.ts` intercepta todas las requests HTTP antes de que salgan a la red y devuelve datos estáticos directamente desde el cliente:
+
+- Simula GET con filtros (`q`, `department`, `status`) y paginación
+- Simula POST (crea empleado con ID generado), PUT (actualiza) y DELETE
+- Se activa solo cuando `environment.production === true`
+
+Esto permite hacer una demo funcional completa sin infraestructura backend.
 
 ## Interceptor HTTP
 
@@ -88,7 +98,12 @@ Esto centraliza el manejo de autenticación y errores, sin que cada componente t
 
 ## Husky y lint-staged
 
-Husky ejecuta un hook de `pre-commit` que corre automáticamente antes de cada `git commit`. Mediante `lint-staged`, aplica Prettier solo sobre los archivos staged (`.ts`, `.html`, `.scss`), garantizando que el código commiteado siempre esté formateado correctamente sin necesidad de formatear todo el proyecto.
+Husky ejecuta un hook de `pre-commit` que corre automáticamente antes de cada `git commit`:
+
+1. **`tsc --noEmit`** — verifica que no haya errores de TypeScript en todo el proyecto.
+2. **`lint-staged`** — aplica Prettier solo sobre los archivos staged (`.ts`, `.html`, `.scss`).
+
+Esto garantiza que ningún commit introduzca errores de tipos ni código mal formateado.
 
 ## Tests
 
@@ -112,4 +127,4 @@ npm run test:coverage
 | Ambiente | API URL |
 |---|---|
 | development | `http://localhost:3000` (via proxy.conf.json) |
-| production | `https://api.hr-dashboard.com` |
+| production | `/api` (interceptado por mock-backend.interceptor) |

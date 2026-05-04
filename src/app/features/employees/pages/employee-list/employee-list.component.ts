@@ -65,6 +65,7 @@ import { Employee } from '../../../../core/models/employee.model';
       </mat-form-field>
     </div>
 
+    <div class="table-wrapper">
     <table
       mat-table
       [dataSource]="employees()"
@@ -111,6 +112,7 @@ import { Employee } from '../../../../core/models/employee.model';
         <td class="mat-cell no-data" colspan="5">No se encontraron empleados</td>
       </tr>
     </table>
+    </div>
 
     <mat-paginator
       [length]="total()"
@@ -157,6 +159,14 @@ import { Employee } from '../../../../core/models/employee.model';
       .status-on-leave {
         --mdc-chip-container-color: #fef3c7;
         color: #92400e !important;
+      }
+      .table-wrapper {
+        overflow-x: auto;
+        border-radius: 10px;
+      }
+      @media (max-width: 600px) {
+        .mat-column-email,
+        .mat-column-department { display: none; }
       }
     `,
   ],
