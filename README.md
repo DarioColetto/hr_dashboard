@@ -1,11 +1,12 @@
 # HR Dashboard
 
-Panel de administración de recursos humanos construido con Angular 18. Incluye autenticación con JWT simulado, CRUD completo de empleados (crear, editar, ver detalle y eliminar), búsqueda con debounce, paginación, exportación a PDF y gestión de experiencia laboral mediante formularios reactivos multi-paso.
+Panel de administración de recursos humanos construido con Angular 21. Incluye autenticación con JWT simulado, CRUD completo de empleados (crear, editar, ver detalle y eliminar), búsqueda con debounce, paginación, filtros, exportación a PDF, visualización de estadísticas con Chart.js y gestión de experiencia laboral mediante formularios reactivos multi-paso. Diseño responsive con sidenav adaptativo (mobile/desktop).
 
 ## Stack
 
-- **Angular 18** — standalone components, signals, nueva sintaxis `@if/@for`
-- **Angular Material 18** — sidenav, tables, dialogs, steppers, paginación
+- **Angular 21** — standalone components, signals, nueva sintaxis `@if/@for`, TC39 decorators
+- **Angular Material 21** — sidenav responsive, tables, dialogs, steppers, paginación
+- **Chart.js + ng2-charts** — gráficos de estado, departamento y salario promedio
 - **RxJS 7** — `debounceTime`, `switchMap`, `distinctUntilChanged`, `takeUntil`
 - **Formularios reactivos** — `FormGroup`, `FormArray`, validadores custom (DNI, rango salarial, rango de fechas), validación cruzada
 - **HttpClient + Interceptors** — auth JWT simulado, manejo centralizado de errores HTTP
@@ -15,7 +16,7 @@ Panel de administración de recursos humanos construido con Angular 18. Incluye 
 - **ngx-toastr** — notificaciones
 - **json-server** — mock API REST para desarrollo local
 - **Jest + jest-preset-angular** — tests unitarios
-- **ESLint + Prettier + Husky + lint-staged** — calidad de código en pre-commit
+- **ESLint 9 (flat config) + Prettier + Husky + lint-staged** — calidad de código en pre-commit
 
 ## Estructura
 
@@ -128,3 +129,30 @@ npm run test:coverage
 |---|---|
 | development | `http://localhost:3000` (via proxy.conf.json) |
 | production | `/api` (interceptado por mock-backend.interceptor) |
+
+## Migración Angular 18 → 21
+
+El proyecto fue migrado paso a paso usando `ng update` con sus schematics automáticos:
+
+```
+Angular 18 → 19 → 20 → 21
+```
+
+Cada salto ejecuta migraciones automáticas sobre el código fuente. Cambios destacados del proceso:
+
+### Angular 19
+- `standalone: true` deja de ser necesario en `@Component`, `@Directive` y `@Pipe` (ahora es el valor por defecto).
+- Los schematics lo removieron automáticamente de los 7 componentes del proyecto.
+
+### Angular 20
+- `DOCUMENT` se importa desde `@angular/core` en lugar de `@angular/common`.
+- `moduleResolution` actualizado a `"bundler"` en `tsconfig.json`.
+
+### Angular 21
+- Soporte completo de TC39 decorators (estándar ECMAScript). `experimentalDecorators` fue removido de `tsconfig.json` ya que no es necesario en Angular 21.
+
+### ESLint
+Como parte del proceso se migró la configuración de ESLint:
+
+- **Antes:** `.eslintrc.json` (formato legacy) con ESLint 10, incompatible con `@typescript-eslint@8`.
+- **Después:** `eslint.config.mjs` (flat config de ESLint 9), compatible con `@typescript-eslint@8` y `@angular-eslint@21`.
