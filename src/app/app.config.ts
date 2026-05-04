@@ -3,6 +3,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideToastr } from 'ngx-toastr';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { mockBackendInterceptor } from './core/interceptors/mock-backend.interceptor';
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors(interceptors)),
     provideAnimationsAsync(),
     provideToastr({ positionClass: 'toast-top-right', preventDuplicates: true }),
+    provideCharts(withDefaultRegisterables()),
   ],
 };
